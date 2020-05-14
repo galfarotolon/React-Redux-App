@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
-import { fetchDesc } from "../store/actions/index";
+import { indexCatcher } from "../store/actions/index";
 
 const SpellDesc = props => {
 
     useEffect(() => {
-        props.fetchDesc();
+        props.indexCatcher();
     }, []);
 
 
@@ -58,5 +58,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { fetchDesc }
+    { indexCatcher }
 )(SpellDesc);

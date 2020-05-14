@@ -28,21 +28,37 @@ console.log(randomNumber())
 
 /////index catcher
 
+export function indexCatcher() {
 
-// axios.get(`https://www.dnd5eapi.co/api/spells/`)
-
-
-//     .then(res => {
-//         console.log('testinggg here', res.data.results[randomNumber()].index);
-
-//         const index = (res.data.results[randomNumber()].index)
-
-
-//         console.log(index)
-//     })
+    return dispatch => {
 
 
 
+        axios.get(`https://www.dnd5eapi.co/api/spells/`)
+
+
+            .then(res => {
+                console.log('testinggg here', res.data.results[randomNumber()].index);
+
+                const index = (res.data.results[randomNumber()].index)
+
+                axios
+                    .get(`https://www.dnd5eapi.co/api/spells/${index}`)
+                    .then(res => {
+                        console.log('yoo', res.data);
+                        dispatch({ type: FETCH_DESC_SUCCESS, payload: res.data.desc });
+                    })
+                    .catch(err => console.log(err));
+
+
+
+
+                console.log(index)
+            })
+
+    }
+
+}
 
 
 export const fetchSpell = () => {
@@ -64,20 +80,20 @@ export const fetchSpell = () => {
 
 
 
-export const fetchDesc = () => {
-    // make an async request
-    // redux-thunk allows us to return functions instead of objects
-    return dispatch => {
-        dispatch({ type: FETCH_DESC_START });
-        // then make the async call
-        axios
-            .get(`https://www.dnd5eapi.co/api/spells/acid-arrow`)
-            .then(res => {
-                console.log('yoo', res.data);
-                dispatch({ type: FETCH_DESC_SUCCESS, payload: res.data.desc });
-            })
-            .catch(err => console.log(err));
-    };
-};
+// export const fetchDesc = () => {
+//     // make an async request
+//     // redux-thunk allows us to return functions instead of objects
+//     return dispatch => {
+//         dispatch({ type: FETCH_DESC_START });
+//         // then make the async call
+//         axios
+//             .get(`https://www.dnd5eapi.co/api/spells/${}`)
+//             .then(res => {
+//                 console.log('yoo', res.data);
+//                 dispatch({ type: FETCH_DESC_SUCCESS, payload: res.data.desc });
+//             })
+//             .catch(err => console.log(err));
+//     };
+// };
 
 
